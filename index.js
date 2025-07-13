@@ -16,6 +16,9 @@ let winningCombinatioms = [
 ];
 
 boxes.forEach((box) => {
+  box.addEventListener("mouseover", () => {
+    box.style.cursor = "pointer";
+  });
   box.addEventListener("click", () => {
     if (box.innerText === "" && !gameOver) {
       box.innerText = playerIsX ? "X" : "O";
@@ -41,6 +44,13 @@ const checkForWinner = (box) => {
   }
 };
 
+mode.addEventListener("mouseover", () => {
+  mode.style.cursor = "pointer";
+});
+
 mode.addEventListener("click", () => {
   document.body.classList.toggle("dark");
+  mode.innerText = document.body.classList.contains("dark")
+    ? "Dark Mode"
+    : "Light Mode";
 });
