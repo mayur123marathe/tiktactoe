@@ -3,6 +3,7 @@ let playerIsX = true;
 let winnerText = document.querySelector(".winner");
 let gameOver = false;
 let mode = document.querySelector(".mode");
+let reset = document.querySelector(".reset");
 
 let winningCombinatioms = [
   [0, 1, 2],
@@ -24,6 +25,7 @@ boxes.forEach((box) => {
       box.innerText = playerIsX ? "X" : "O";
       checkForWinner(box);
       playerIsX = !playerIsX;
+      if (!gameOver) isGameOver();
     }
   });
 });
@@ -40,9 +42,29 @@ const checkForWinner = (box) => {
       console.log(box);
       winnerText.innerText = `Player ${box.innerText} wins!`;
       gameOver = true;
+      reset.innerText = "Restart";
+      reset.style.display = "block";
     }
   }
 };
+
+const isGameOver = () => {
+  for (box of boxes) {
+    if (box.innerText === "") {
+      gameOver = false;
+    } else {
+      gameOver = true;
+    }
+  }
+  if (gameOver) {
+    winnerText.innerText = "Draw!";
+    reset.style.display = "block";
+  }
+};
+
+reset.addEventListener("click", () => {
+  window.location.reload();
+});
 
 mode.addEventListener("mouseover", () => {
   mode.style.cursor = "pointer";
